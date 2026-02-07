@@ -2,5 +2,5 @@ python-telegram-bot>=20.0
 instaloader>=4.0
 requests>=2.0
 python-telegram-bot
-yt-dlp
+
 
