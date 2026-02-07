@@ -5,7 +5,7 @@ from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTyp
 import yt_dlp
 
 # --- CONFIGURATION ---
-TOKEN = "YOUR_BOT_TOKEN_HERE"
+TOKEN = "8257745511:AAH4YOjz83oD-sfEqOAqE6nCxyftYe83Dws"
 
 
 async def download_instagram(url):
