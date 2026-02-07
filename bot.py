@@ -2,13 +2,11 @@ import os
 import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
-
-
-
-
+import yt_dlp
 
 # --- CONFIGURATION ---
-TOKEN = "YOUR BOT TOKEN HERE"
+TOKEN = "YOUR_BOT_TOKEN_HERE"
+
 
 async def download_instagram(url):
     """Downloads Instagram video using yt-dlp."""
@@ -49,8 +47,3 @@ if __name__ == '__main__':
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
     print("Bot is running...")
     app.run_polling()
-
-
-
-
-          
