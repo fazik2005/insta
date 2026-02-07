@@ -2,7 +2,7 @@ import os
 import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
-import yt_dlp
+
 
 
 
@@ -50,8 +50,6 @@ if __name__ == '__main__':
     print("Bot is running...")
     app.run_polling()
 
-import yt_dlp
-import os
 
 
 
