@@ -3,9 +3,47 @@ import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 import yt_dlp
+from telegram import Update
+from telegram.ext import ContextTypes
+
+
 
 # --- CONFIGURATION ---
-TOKEN = "8257745511:AAH4YOjz83oD-sfEqOAqE6nCxyftYe83Dws"
+TOKEN = "YOUR BOT TOKEN HERE"
+
+# Videoni yuklab olish funksiyasi
+async def download_video(url):
+    ydl_opts = {
+        'format': 'best[ext=mp4]/best',  # Eng yaxshi sifatli mp4 format
+        'outtmpl': 'downloads/%(title)s.%(ext)s',  # Yuklash manzili va nomi
+        'max_filesize': 50 * 1024 * 1024,  # 50MB dan oshmasligi kerak (Telegram limiti)
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=True)
+        return ydl.prepare_filename(info)
+
+
+# Xabarni qayta ishlovchi funksiya
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    url = update.message.text
+
+    if "youtube.com" in url or "youtu.be" in url:
+        status_msg = await update.message.reply_text("Video tayyorlanmoqda, kuting...")
+
+        try:
+            file_path = await download_video(url)
+
+            # Videoni yuborish
+            with open(file_path, 'rb') as video:
+                await update.message.reply_video(video=video, caption="Mana sizning videongiz!")
+
+  # Serverda joy egallamasligi uchun o'chirib tashlaymiz
+            os.remove(file_path)
+            await status_msg.delete()
+
+        except Exception as e:
+            await status_msg.edit_text(f"Xatolik yuz berdi: {str(e)}")
 
 
 async def download_instagram(url):
@@ -48,7 +86,9 @@ if __name__ == '__main__':
     print("Bot is running...")
     app.run_polling()
 
+import yt_dlp
+import os
 
 
 
-
+          
